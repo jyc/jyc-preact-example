@@ -1,0 +1,10 @@
+.DS_Store
+.vscode
+build
+examples
+dist
+node_modules
+stats.html
+
+# Local Netlify folder
+.netlify

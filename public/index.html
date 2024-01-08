@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <script defer src="index.js"></script>
+    <link rel="stylesheet" href="index.css" />
+    <style>
+      @keyframes loading-bar {
+        0% {
+          width: 0%;
+        }
+        16% {
+          width: 50%;
+        }
+        33% {
+          width: 75%;
+        }
+        50% {
+          width: 87.5%;
+        }
+        66% {
+          width: 93.75%;
+        }
+        83% {
+          width: 96.875%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+      #loading-bar {
+        position: fixed;
+        height: 4px;
+        left: 0;
+        top: 0;
+        background-color: #0085ff;
+
+        animation-name: loading-bar;
+        animation-duration: 10s;
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+      }
+    </style>
+    <script>
+      new EventSource("/esbuild").addEventListener("change", () => location.reload());
+    </script>
+    <title>jyc-preact-example</title>
+  </head>
+  <body>
+    <div id="root" style="margin: 0; height: 100%"></div>
+    <div id="loading-bar"></div>
+  </body>
+</html>

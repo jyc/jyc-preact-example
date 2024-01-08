@@ -1,0 +1,41 @@
+{
+  "name": "jyc-preact-example",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "check": "tsc --noEmit -p .",
+    "format": "npx prettier -w .",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "serve": "SERVE=1 node ./scripts/build.mjs",
+    "serve-dist": "caddy file-server --root dist --listen :8080",
+    "watch-lint": "pnpm exec chokidar \"src/**/*\" \"test/**/*\" -c \"pnpm run lint\"",
+    "watch-tsc": "tsc -p . -w",
+    "verify": "npm run check && npm run lint && npx prettier --check .",
+    "visualize-bundle": "npx esbuild-visualizer --metadata build/meta.json && open stats.html",
+    "update-dependencies": "npx npm-check-updates -u"
+  },
+  "author": "Jonathan Y. Chan",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "@types/node": "^20.10.7",
+    "@typescript-eslint/eslint-plugin": "^6.18.0",
+    "chokidar-cli": "^3.0.0",
+    "esbuild": "^0.19.11",
+    "esbuild-sass-plugin": "^2.16.1",
+    "esbuild-visualizer": "^0.6.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "generate-license-file": "^3.0.1",
+    "postcss": "^8.4.33",
+    "postcss-modules": "^6.0.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@preact/signals": "^1.2.2",
+    "preact": "^10.19.3"
+  }
+}

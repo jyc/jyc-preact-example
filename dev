@@ -1,0 +1,37 @@
+#!/bin/zsh
+
+# dev: launcher for long-living processes used during development
+
+set -eEuo pipefail
+
+kill-session() {
+  tmux kill-session -t "$session" 2>/dev/null
+}
+
+zshexit() {
+  kill-session
+}
+
+trap zshexit ERR
+
+session="jyc-preact-example-dev"
+
+if tmux list-sessions 2>/dev/null | grep -E "^$session:" >/dev/null; then
+  echo "A session '$session' already exists; aborting."
+  echo "Kill it with: 'tmux kill-session -t $session'."
+  exit 1
+fi
+
+( pnpm install )
+
+# README: run `less dev`
+tmux new-session -d -n README -s "$session" "cat DEV.md; read; tmux kill-session -t $session"
+
+# app-tsc: run `pnpm run watch-tsc`.
+tmux new-window -t "$session" 'pnpm run watch-tsc; read'
+tmux split-window -t "$session" -v 'pnpm run watch-lint; read'
+tmux split-window -t "$session" -h 'pnpm run serve; read'
+
+tmux select-window -t :0
+
+tmux attach-session -t "$session"
